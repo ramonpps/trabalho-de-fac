@@ -73,3 +73,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 Resources:
 
 https://github.com/elmarti/react-joystick-component
+https://github.com/vudung45/FaceRTC
+https://codesandbox.io/s/1dlhl?file=/src/App.js:3649-3666
