@@ -26,7 +26,7 @@ class Video extends Component {
 			useStun: false,
 			useDataChannel: true,
 			useAudio: false,
-			useVideo: true,
+			useVideo: false,
 			videoResolution: "1280x720",			//	"320x240"			//	"640x480"			//	"960x540"
 			videoCodec: "default",						//	"VP8/90000" 	// 	"H264/90000"	//	"default"
 			audioCodec: "default", 						//	"opus/48000/2"//	"PCMU/8000"		//	"PCMA/8000"
@@ -75,9 +75,8 @@ class Video extends Component {
 	}
 
 	negotiate() {
-		var pc = this.state.pc;
-		// var that = this;
-		console.log('negotiate');
+		this.state.pc.addTransceiver('video', {direction: 'recvonly'});
+		// this.state.pc.addTransceiver('audio', {direction: 'recvonly'});
 		return this.state.pc.createOffer().then(function(offer) {
 			return this.state.pc.setLocalDescription(offer);
 		}.bind(this)).then(function() {
@@ -98,39 +97,25 @@ class Video extends Component {
 			}.bind(this));
 		}.bind(this)).then(function() {
 			console.log('test')
-				var offer = pc.localDescription;
-				var codec;
-
-				codec = this.state.audioCodec;
-				if (codec !== 'default') {
-						offer.sdp = this.sdpFilterCodec('audio', codec, offer.sdp);
-				}
-
-				codec = this.state.videoCodec;
-				if (codec !== 'default') {
-						offer.sdp = this.sdpFilterCodec('video', codec, offer.sdp);
-				}
-				return fetch('http://192.168.86.2:8080/offer', {
-						body: JSON.stringify({
-							sdp: offer.sdp,
-							type: offer.type,
-							video_transform: "none",
-						}),
-						headers: {
-								'Content-Type': 'application/json',
-						},
-						method: 'POST'
-				});
+				var offer = this.state.pc.localDescription;
+				return fetch('http://192.168.56.1:8080/offer', {
+					body: JSON.stringify({
+						sdp: offer.sdp,
+						type: offer.type,
+						video_transform: "none",
+					}),
+					headers: {
+							'Content-Type': 'application/json',
+					},
+					method: 'POST'
+			});
 		}.bind(this)).then(function(response) {
-			console.log('response received')
 			return response.json();
 		}).then(function(answer) {
-			console.log(answer);
-			// document.getElementById('answer-sdp').textContent = answer.sdp;
 			return this.state.pc.setRemoteDescription(answer);
-		// }).catch(function(e) {
-		// 	alert(e);
-		}.bind(this));
+		}.bind(this)).catch(function(e) {
+			alert(e);
+		});
 	}
 
 	async start() {
@@ -166,69 +151,13 @@ class Video extends Component {
 			};
 		}
 
-		var constraints = {
-			audio: this.state.useAudio,
-			video: false
-		};
-
-		if (this.state.useVideo) {
-			var resolution = this.state.videoResolution;
-			if (resolution) {
-				resolution = resolution.split('x');
-				constraints.video = {
-					width: parseInt(resolution[0], 0),
-					height: parseInt(resolution[1], 0)
-				};
-			} else {
-				constraints.video = true;
-			}
-		}
-		if (constraints.audio || constraints.video) {
-				if (constraints.video) {
-						document.getElementById('media').style.display = 'block';
-				}
-				navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-					console.log(this)
-						stream.getTracks().forEach(function(track) {
-								console.log(track);
-								this.state.pc.addTrack(track, stream);
-						}.bind(this));
-						return this.negotiate();
-				}.bind(this), function(err) {
-						alert('Could not acquire media: ' + err);
-				});
-		} else {
-				this.negotiate();
-		}
-		// if (constraints.audio || constraints.video) {
-		// 	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-		// 		stream.getTracks().forEach(function(track) {
-		// 				console.log(this.state.pc);
-		// 				this.state.pc.addTrack(track, stream);
-		// 		});
-		// 		return this.negotiate();
-		// 	})
-		// 	// navigator.mediaDevices.getUserMedia(constraints)
-		// 	// 	.then(this.handleStream)
-		// 		// .catch( err => alert(`${err.name}.`))
-		// } else {
-		// 	this.negotiate();
-		// }
-
-			// document.getElementById('stop').style.display = 'inline-block';
+		this.negotiate();
+		
 	}
- 
-	handleStream = (stream) => {
-		console.log(stream)
-		this.state.pc.addTrack(stream.getVideoTracks()[0]);
-		this.state.pc.addTrack(stream.getAudioTracks()[0]);
-  }
-
 
 	stop() {
 		
-
-			document.getElementById('stop').style.display = 'none';
+		document.getElementById('stop').style.display = 'none';
 		var dc = this.state.dc;
 		var pc = this.state.pc;
 		// close data channel
