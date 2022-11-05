@@ -42,7 +42,7 @@ class VideoImageTrack(VideoStreamTrack):
         super().__init__()  # don't forget this!
 
         # self.video = cv2.VideoCapture('sampleBoat2.mp4')
-        self.video = cv2.VideoCapture(1)
+        self.video = cv2.VideoCapture(0)
 
     async def recv(self):
         pts, time_base = await self.next_timestamp()

@@ -98,7 +98,7 @@ class Video extends Component {
 		}.bind(this)).then(function() {
 			console.log('test')
 				var offer = this.state.pc.localDescription;
-				return fetch('http://192.168.56.1:8080/offer', {
+				return fetch('http://10.100.14.102:8080/offer', {
 					body: JSON.stringify({
 						sdp: offer.sdp,
 						type: offer.type,
