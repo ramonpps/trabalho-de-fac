@@ -1,19 +1,23 @@
 import './App.css';
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Grid from '@mui/material/Unstable_Grid2';
 import Dashboard from './Dashboard';
+import VideoRecorderSettings from './VideoRecorderSettings';
+import { useState } from 'react';
 
 function App() {
+  const [dashboard,setDashboard] = useState(true)
+  let ButtonName;
+  dashboard ? ButtonName = 'Recordings' : ButtonName = 'Dashboard'
   return (
     <div>
       <AppBar position="static" className='App' style={{backgroundColor: "#282c34"}}>
-        <Toolbar >
-            Drone Command Center
+        <Toolbar className='toolbar'>
+            <h3>Drone Command Center</h3>
+              <button onClick={() => setDashboard(!dashboard)}>Switch to {ButtonName}</button>
         </Toolbar>
       </AppBar>
-      <Dashboard></Dashboard>
+        {dashboard ? <Dashboard /> : <VideoRecorderSettings />}
     </div>
   );
 }

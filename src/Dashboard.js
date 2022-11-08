@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button";
 import { Box, Grid } from "@material-ui/core";
 import Video from './Video';
 
+import VideoRecorder from './VideoRecorder';
+
 const useStyles = makeStyles({
   grid: {
     height: "90vh"
@@ -13,6 +15,7 @@ const useStyles = makeStyles({
 export default function Dashboard() {
   const classes = useStyles();
   const [show, setShow] = useState(false);
+  
 
   return (
     <Box height="100vh" mr={4}>

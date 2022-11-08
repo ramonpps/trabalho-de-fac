@@ -37,3 +37,18 @@
     transform: rotate(360deg);
   }
 }
+
+.toolbar{
+  justify-content: space-between;
+}
+
+.ToolBarFlexBox{
+  padding: 5px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.videorecorder{
+  padding: 20px;
+  justify-content: space-between;
+}
