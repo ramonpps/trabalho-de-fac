@@ -1,0 +1,52 @@
+# [*.'language_extension'] = this rule will apply to every file of that specific language.
+#     for example, [*.js] = this rule will apply to every javascript file.
+
+# [name/**/*.'language_extension'] = applies to every file of that extension in the subfolders of "name".
+#     for example, [lib/**/*.js] = transforms every javascript file inside all subfolders of lib.
+
+# [name.'language_extension'] = apply only to that file.
+#     for examples, [package.json]
+#         use keys for multiple items = [{package.json,package_lock.json,setupTests.js}]
+#         use ! to deny a specific item that has been englobed by a rule. Example = [!package.json]
+
+# [*] = transforms every file in the project.
+
+
+# root = plugin will keep scanning for a .editorconfig file to apply its rules until it finds a root = true
+# [*]
+# indent_style = could be space or tab
+# indent_size = defines the length of code ident
+# end_of_line =  type of character chosen to represent line breaking
+# charset = utf-8 is a standard used by most big projects that uses editorconfig, but feel free to modify if you want to
+# trim_trailing_whitespace =  remove unused spaces in end-lines
+# insert_final_newline = insert a new line on each line end
+
+
+# I've made this template by checking on big project's editorconfig file and trying to merge then into something good for us.
+# Feel free to change as you wish
+# https://github.com/editorconfig/editorconfig/wiki/Projects-Using-EditorConfig
+
+#REMEMBER: EVERYONE SHOULD DOWNLOAD EDITORCONFIG PLUGIN FOR THIS TO WORK
+
+root = true
+
+[*]
+indent_style = tab
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+
+[*.{js,json}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+indent_brace_style = K&R
+curly_bracket_next_line = false
+
+[*.{js}]
+quote_type = single
+spaces_around_operators = true
+spaces_around_brackets = inside
