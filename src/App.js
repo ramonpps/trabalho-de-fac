@@ -13,7 +13,7 @@ function App() {
     <div>
       <AppBar position="static" className='App' style={{backgroundColor: "#282c34"}}>
         <Toolbar className='toolbar'>
-            <h3>Drone Command Center</h3>
+            <h4>Drone Command Center</h4>
               <button onClick={() => setDashboard(!dashboard)}>Switch to {ButtonName}</button>
         </Toolbar>
       </AppBar>

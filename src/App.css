@@ -14,12 +14,18 @@
   justify-content: space-around;
 }
 
-.videorecorder{
-  padding: 20px;
-  justify-content: space-between;
-}
+
 
 #myVideo {
-	width: 80vw;
-	height: 35vw;
+	width: 45em;
+	height: 30em;
+}
+
+#myVideo video{
+  width: 45em !important;
+  height: 30em;
+}
+
+#buttonjs{
+  margin: 15px 15px;
 }

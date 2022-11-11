@@ -320,7 +320,7 @@ class Video extends Component {
 						<audio id="audio" autoPlay></audio>
 						<video id="myVideo" ref={video => this.videoNode = video} playsInline
 								style={{objectFit: 'contain', borderRadius: '30px', backgroundColor: '#00000094',
-								boxShadow: '0 0 0 1px rgba(63,63,68,0.05), 0 1px 3px 0 rgba(63,63,68,0.15)', margin: 20}}>
+								boxShadow: '0 0 0 1px rgba(63,63,68,0.05), 0 1px 3px 0 rgba(63,63,68,0.15)', margin: 0}}>
 						</video>
 					</center>
 				)}

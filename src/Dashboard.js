@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, Button } from "@material-ui/core";
 import Video from './Video';
 
 import VideoRecorder from './VideoRecorder';
@@ -18,7 +17,7 @@ export default function Dashboard() {
   
 
   return (
-    <Box height="100vh" mr={4}>
+    <Box height="100vh">
       <Grid
         container
         direction="column"
@@ -27,7 +26,7 @@ export default function Dashboard() {
       >
         <Grid item xs="auto">
           <center>
-            <Button variant="contained" onClick={() => setShow(!show)}>
+            <Button id='buttonjs' variant="contained" onClick={() => setShow(!show)}>
               Start
             </Button>
             { show && (
