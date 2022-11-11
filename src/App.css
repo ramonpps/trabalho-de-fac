@@ -52,3 +52,8 @@
   padding: 20px;
   justify-content: space-between;
 }
+
+#myVideo {
+	width: 80vw;
+	height: 35vw;
+}

@@ -1,13 +1,23 @@
+import React, { Component } from 'react';
+
 import './App.css';
+
+import 'video.js/dist/video-js.css';
+import videojs from 'video.js';
+
+import 'webrtc-adapter';
+import RecordRTC from 'recordrtc';
+
+// register videojs-record plugin with this import
+import 'videojs-record/dist/css/videojs.record.css';
+import Record from 'videojs-record/dist/videojs.record.js';
+import TsEBMLEngine from 'videojs-record/dist/plugins/videojs.record.ts-ebml.js';
 
 // // get DOM elements
 // var dataChannelLog = document.getElementById('data-channel'),
 //     iceConnectionLog = document.getElementById('ice-connection-state'),
 //     iceGatheringLog = document.getElementById('ice-gathering-state'),
 //     signalingLog = document.getElementById('signaling-state');
-
-
-import React, { Component } from "react";
 
 class Video extends Component {
 	// // get DOM elements
@@ -20,14 +30,28 @@ class Video extends Component {
     super();
     this.state = {
       pc: null,							// peer connection
-			dc: null, 						// data channel 
+			dc: null, 						// data channel
 			dcInterval: null,			// data channel
 			show: props.show,
 			useStun: false,
 			useDataChannel: true,
-			useAudio: false,
-			useVideo: false,
-			videoResolution: "1280x720",			//	"320x240"			//	"640x480"			//	"960x540"
+      controls: true,
+      bigPlayButton: false,
+      fluid: false,
+      width: 400,
+      height: 500,
+			useAudio: true,
+			useVideo: true,
+      autoPlay: true,
+      plugins: {
+        record: {
+            audio: true,
+            video: true,
+            maxLength: 3600, //if i remove this, default duration will trigger, and it is only 10 seconds.
+
+        }
+      },
+			videoResolution: "1280x720",			//	"320x240"			//	"640x480"			//	"960x540"			//	"1280x720"
 			videoCodec: "default",						//	"VP8/90000" 	// 	"H264/90000"	//	"default"
 			audioCodec: "default", 						//	"opus/48000/2"//	"PCMU/8000"		//	"PCMA/8000"
 			dataChannelParameters: {"ordered": true}		//	{"ordered": false, "maxRetransmits": 0}	//	{"ordered": false, "maxPacketLifetime": 500}
@@ -59,7 +83,7 @@ class Video extends Component {
     if (this.state.useStun) {
         config.iceServers = [{urls: ['stun:stun.l.google.com:19302']}];
     }
-		
+
     this.state.pc = new RTCPeerConnection(config);
     // connect audio / video
     this.state.pc.addEventListener('track', function(evt) {
@@ -114,13 +138,45 @@ class Video extends Component {
 		}).then(function(answer) {
 			return this.state.pc.setRemoteDescription(answer);
 		}.bind(this)).catch(function(e) {
-			alert(e);
+			//alert(e);
 		});
 	}
 
 	async start() {
-		console.log('Start')
+		  console.log('Start')
+      // instantiate Video.js
+      this.player = videojs(this.videoNode, this.state, () => {
+        // print version information at startup
+        const version_info = 'Using video.js ' + videojs.VERSION +
+            ' with videojs-record ' + videojs.getPluginVersion('record') +
+            ' and recordrtc ' + RecordRTC.version;
+        videojs.log(version_info);
+    });
+
+
+      // device is ready
+      this.player.on('deviceReady', () => {
+        console.log('device is ready!');
+    });
+
+      // user clicked the record button and started recording
+      this.player.on('startRecord', () => {
+          console.log('started recording!');
+      });
+
+      // user completed recording and stream is available
+      this.player.on('finishRecord', () => {
+          // recordedData is a blob object containing the recorded data that
+          // can be downloaded by the user, stored on server etc.
+          // show save as dialog
+          this.player.on('finishConvert', function() {
+              console.log('finished converting: ', this.player.convertedData);
+          });
+          this.player.record().saveAs({'video': 'my-video-file-name.webm'});
+          console.log('finished recording: ', this.player.recordedData);});
+
 		this.createPeerConnection();
+
 		if(this.state.useDataChannel){
 			console.log('data channel parameters')
 			var parameters = this.state.dataChannelParameters;
@@ -137,7 +193,7 @@ class Video extends Component {
 					// console.log(this.state.dc)
 					this.state.dc.send(event.key)
 				});
-				
+
 					// dataChannelLog.textContent += '- open\n';
 					// dcInterval = setInterval(function() {
 					// 		var message = 'ping ' + current_stamp();
@@ -151,15 +207,20 @@ class Video extends Component {
 			};
 		}
 
+
+
+
 		this.negotiate();
-		
+
+
 	}
 
 	stop() {
-		
+
 		document.getElementById('stop').style.display = 'none';
 		var dc = this.state.dc;
 		var pc = this.state.pc;
+
 		// close data channel
 		if (dc) {
 				dc.close();
@@ -185,6 +246,10 @@ class Video extends Component {
 		}, 500);
 		this.state.dc = dc;
 		this.state.pc = pc;
+
+    if (this.player) {
+      this.player.dispose();
+  }
 	}
 
 	sdpFilterCodec(kind, codec, realSdp) {
@@ -192,7 +257,7 @@ class Video extends Component {
 			var rtxRegex = new RegExp('a=fmtp:(\\d+) apt=(\\d+)\r$');
 			var codecRegex = new RegExp('a=rtpmap:([0-9]+) ' + this.escapeRegExp(codec))
 			var videoRegex = new RegExp('(m=' + kind + ' .*?)( ([0-9]+))*\\s*$')
-			
+
 			var lines = realSdp.split('\n');
 
 			var isKind = false;
@@ -253,13 +318,13 @@ class Video extends Component {
     return (
 			<div id="media">
 				{show && (
-					<div>
+					<center>
 						<audio id="audio" autoPlay></audio>
-						<video id="video" autoPlay playsInline muted={true}
-								style={{ width: '80%', objectFit: 'contain', borderRadius: '4px', transform: 'scaleX(-1)', backgroundColor: '#00000094', 
+						<video id="myVideo" ref={video => this.videoNode = video} playsInline
+								style={{objectFit: 'contain', borderRadius: '30px', backgroundColor: '#00000094',
 								boxShadow: '0 0 0 1px rgba(63,63,68,0.05), 0 1px 3px 0 rgba(63,63,68,0.15)', margin: 20}}>
 						</video>
-					</div>
+					</center>
 				)}
 			</div>
 		);
