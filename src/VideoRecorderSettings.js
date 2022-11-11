@@ -1,8 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
 import VideoRecorder from './VideoRecorder';
-import './App.css';
 import TsEBMLEngine from 'videojs-record/dist/plugins/videojs.record.ts-ebml.js'; //this was supposed to be used to retrieve metadata, but couldnt find out how
 
 const VideoRecorderSettings = () => {

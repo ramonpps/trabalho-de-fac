@@ -1,9 +1,9 @@
-import './App.css';
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Dashboard from './Dashboard';
 import VideoRecorderSettings from './VideoRecorderSettings';
 import { useState } from 'react';
+import './App.css';
 
 function App() {
   const [dashboard,setDashboard] = useState(true)

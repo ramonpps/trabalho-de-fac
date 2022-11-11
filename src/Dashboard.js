@@ -27,7 +27,7 @@ export default function Dashboard() {
       >
         <Grid item xs="auto">
           <center>
-            <Button variant="contained" color="default" onClick={() => setShow(!show)}>
+            <Button variant="contained" onClick={() => setShow(!show)}>
               Start
             </Button>
             { show && (
