@@ -29,3 +29,93 @@
 #buttonjs{
   margin: 15px 15px;
 }
+
+#myVideo > button > span.vjs-control-text{
+	display: none;
+}
+
+#myVideo > button{
+	-webkit-font-smoothing: antialiased;
+	font-family: videojs-record;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 3em;
+	position: absolute;
+	z-index: 2;
+	top: 50%;
+	left: 50%;
+	width: 4em;
+	height: 2.8em;
+	margin-top: -1.2em;
+	margin-left: -2.1em;
+	display: block;
+	cursor: pointer;
+	opacity: 1;
+	transition: all 0.4s;
+	text-align: center;
+	border-radius: 0.8em;
+	background-color: rgba(7, 20, 30, 0.7);
+	box-shadow: 0 0 1em rgba(255, 255, 255, 0.25);
+}
+
+#myVideo > div.vjs-control-bar > button.vjs-seek-to-live-control.vjs-control {
+	display: none;
+}
+
+
+#myVideo > div.vjs-control-bar{
+		display:flex;
+		justify-content:center;
+		height: 5%;
+}
+
+#myVideo > div.vjs-control-bar > button:nth-child(19)::before{
+	display: none;
+}
+
+#myVideo > div.vjs-control-bar > button:nth-child(19){
+	-webkit-font-smoothing: antialiased;
+	font-family: videojs-record;
+	font-weight: normal;
+	font-style: normal;
+	cursor: pointer;
+	height: 100%;
+}
+
+#myVideo > div.vjs-control-bar > div.vjs-current-time.vjs-time-control.vjs-control {
+	display: none;
+}
+
+#myVideo > div.vjs-control-bar > div.vjs-duration.vjs-time-control.vjs-control {
+	display: none;
+}
+
+#myVideo > div.vjs-control-bar > button.vjs-play-control.vjs-control.vjs-button.vjs-paused{
+	display: none;
+}
+
+#myVideo > div.vjs-control-bar > div.vjs-time-control.vjs-time-divider > div > span {
+	display: none;
+}
+
+#myVideo > div.vjs-control-bar > div.vjs-current-time.vjs-time-control.vjs-control > span.vjs-control-text{
+	display: none;
+}
+
+#myVideo > div.vjs-control-bar > div.vjs-duration.vjs-time-control.vjs-control > span.vjs-control-text{
+	display: none;
+}
+
+#myVideo > div.vjs-control-bar > div.vjs-current-time.vjs-time-control.vjs-control > span.vjs-current-time-display{
+	display: none;
+}
+
+#myVideo > div.vjs-control-bar > div.vjs-duration.vjs-time-control.vjs-control > span.vjs-duration-display{
+	display: none;
+}
+
+/* #myVideo_html5_api {
+	display:none;
+} */
+
+

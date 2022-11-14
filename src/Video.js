@@ -33,11 +33,23 @@ class Video extends Component {
 			show: props.show,
 			useStun: false,
 			useDataChannel: true,
+
+      //video.js options
       controls: true,
+      controlBar: {
+        fullscreenToggle: false,
+        volumePanel: false,
+        recordIndicator: true,
+        cameraButton: false,
+        pipToggle: true,
+        recordToggle: true
+
+       },
       bigPlayButton: false,
       fluid: false,
       width: 400,
       height: 500,
+      //poster: 'string' ask ganadev about this
 			useAudio: true,
 			useVideo: true,
       autoPlay: true,
@@ -45,7 +57,7 @@ class Video extends Component {
         record: {
             audio: true,
             video: true,
-            maxLength: 3600, //if i remove this, default duration will trigger, and it is only 10 seconds.
+            maxLength: 36000, //if i remove this, default duration will trigger, and it is only 10 seconds.
 
         }
       },
@@ -88,8 +100,13 @@ class Video extends Component {
 			console.log('track listener')
 			console.log(evt)
 			console.log(document.getElementById('video'))
-        if (evt.track.kind == 'video')
-            document.getElementById('video').srcObject = evt.streams[0];
+        if (evt.track.kind == 'video'){
+          document.getElementById('video').srcObject = evt.streams[0];
+          this.player.on('startRecord', () => {
+            console.log('started recording!');
+        });
+        }
+
         else
             document.getElementById('audio').srcObject = evt.streams[0];
     });
@@ -149,12 +166,14 @@ class Video extends Component {
             ' with videojs-record ' + videojs.getPluginVersion('record') +
             ' and recordrtc ' + RecordRTC.version;
         videojs.log(version_info);
+        document.querySelector("#myVideo > button").click();
     });
 
 
       // device is ready
       this.player.on('deviceReady', () => {
         console.log('device is ready!');
+        document.querySelector("#myVideo > div.vjs-control-bar > button:nth-child(19)").click();
     });
 
       // user clicked the record button and started recording
@@ -171,7 +190,9 @@ class Video extends Component {
               console.log('finished converting: ', this.player.convertedData);
           });
           this.player.record().saveAs({'video': 'my-video-file-name.webm'});
-          console.log('finished recording: ', this.player.recordedData);});
+          console.log('finished recording: ', this.player.recordedData);
+          document.querySelector("#myVideo > div.vjs-control-bar > button:nth-child(19)").click();
+          });
 
 		this.createPeerConnection();
 
