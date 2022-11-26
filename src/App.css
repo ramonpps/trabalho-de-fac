@@ -8,114 +8,108 @@
   justify-content: space-between;
 }
 
-.ToolBarFlexBox{
+.ToolbarFlexBox{
+	display:table-column;
+
+}
+
+.CameraButtonsBox{
   padding: 5px;
-  display: flex;
-  justify-content: space-around;
+  display:contents;
+  justify-content: space-between;
 }
 
-
-
-#myVideo {
-	width: 45em;
-	height: 30em;
-}
-
-#myVideo video{
-  width: 45em !important;
-  height: 30em;
-}
-
-#buttonjs{
-  margin: 15px 15px;
-}
-
-#myVideo > button > span.vjs-control-text{
-	display: none;
-}
-
-#myVideo > button{
+.CameraButton {
 	-webkit-font-smoothing: antialiased;
-	font-family: videojs-record;
-	font-weight: normal;
-	font-style: normal;
-	font-size: 3em;
-	position: absolute;
-	z-index: 2;
-	top: 50%;
-	left: 50%;
-	width: 4em;
-	height: 2.8em;
-	margin-top: -1.2em;
-	margin-left: -2.1em;
-	display: block;
+	border: 1;
 	cursor: pointer;
-	opacity: 1;
-	transition: all 0.4s;
-	text-align: center;
-	border-radius: 0.8em;
-	background-color: rgba(7, 20, 30, 0.7);
-	box-shadow: 0 0 1em rgba(255, 255, 255, 0.25);
+	display: inline-flex;
+	outline: 0;
+	position: relative;
+	align-items: center;
+	user-select: none;
+	vertical-align: middle;
+	justify-content: center;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+	padding: 4px 10px;
+	font-size: 0.7rem;
+	min-width: 64px;
+	box-sizing: border-box;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	font-weight: 500;
+	line-height: 1.75;
+	border-radius: 4px;
+	letter-spacing: 0.02857em;
+	text-transform: uppercase;
+	color: rgba(0, 0, 0, 0.87);
+	box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+	background-color: #e0e0e0;
+	margin: 15px 15px;
 }
 
-#myVideo > div.vjs-control-bar > button.vjs-seek-to-live-control.vjs-control {
-	display: none;
-}
-
-
-#myVideo > div.vjs-control-bar{
-		display:flex;
-		justify-content:center;
-		height: 5%;
-}
-
-#myVideo > div.vjs-control-bar > button:nth-child(19)::before{
-	display: none;
-}
-
-#myVideo > div.vjs-control-bar > button:nth-child(19){
+.ToolBarButton {
 	-webkit-font-smoothing: antialiased;
-	font-family: videojs-record;
-	font-weight: normal;
-	font-style: normal;
+	border: 0;
 	cursor: pointer;
-	height: 100%;
+	display: inline-flex;
+	outline: 0;
+	position: relative;
+	align-items: center;
+	user-select: none;
+	vertical-align: middle;
+	justify-content: center;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+	padding: 2px 8px;
+	font-size: 0.875rem;
+	min-width: 64px;
+	box-sizing: border-box;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	font-weight: 500;
+	line-height: 1.75;
+	border-radius: 4px;
+	letter-spacing: 0.02857em;
+	text-transform: uppercase;
+	color: rgba(0, 0, 0, 0.87);
+	box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+	background-color: #e0e0e0;
+	margin: 15px 15px;
 }
 
-#myVideo > div.vjs-control-bar > div.vjs-current-time.vjs-time-control.vjs-control {
-	display: none;
+.formbox {
+	background-color: #FCF5E5;
+	width: 50vw;
+	margin-left: 24vw;
+	margin-top: 1vw;
+	border: 5px solid black;
+	border-radius: 20px;
 }
 
-#myVideo > div.vjs-control-bar > div.vjs-duration.vjs-time-control.vjs-control {
-	display: none;
+.form {
+	padding: 5px;
+}
+.formitem {
+	margin-left: 1vw;
+	padding: 10px;
+
 }
 
-#myVideo > div.vjs-control-bar > button.vjs-play-control.vjs-control.vjs-button.vjs-paused{
-	display: none;
+.radioflexbox{
+	display: flex;
+	justify-content: space-between;
 }
 
-#myVideo > div.vjs-control-bar > div.vjs-time-control.vjs-time-divider > div > span {
-	display: none;
+.fieldset_writtings{
+	font-size: larger;
+	font-weight: bold;
 }
 
-#myVideo > div.vjs-control-bar > div.vjs-current-time.vjs-time-control.vjs-control > span.vjs-control-text{
-	display: none;
+.aboutus{
+	background-color: #E5E4E2;
+	width: 170px;
+	border: 5px solid #555555;
+	border-radius: 20px;
 }
-
-#myVideo > div.vjs-control-bar > div.vjs-duration.vjs-time-control.vjs-control > span.vjs-control-text{
-	display: none;
-}
-
-#myVideo > div.vjs-control-bar > div.vjs-current-time.vjs-time-control.vjs-control > span.vjs-current-time-display{
-	display: none;
-}
-
-#myVideo > div.vjs-control-bar > div.vjs-duration.vjs-time-control.vjs-control > span.vjs-duration-display{
-	display: none;
-}
-
-/* #myVideo_html5_api {
-	display:none;
-} */
-
-
